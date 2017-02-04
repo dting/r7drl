@@ -1,0 +1,21 @@
+.layout {
+  display        : flex;
+  flex           : 1;
+  flex-direction : column;
+}
+
+.layout-header {
+  display          : flex;
+  padding          : 10px;
+  color            : white;
+  background-color : #222;
+  align-items      : center;
+  justify-content  : center;
+}
+
+.layout-content {
+  display : flex;
+  flex    : 1;
+  align-items      : center;
+  justify-content  : center;
+}

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import { middleware, reducers } from './config';
 import localStorage, { loadState } from './config/local-storage';
-import App from './components/App';
+import App from './containers/App';
 
 import './index.scss';
 
