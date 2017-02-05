@@ -4,14 +4,11 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { middleware, reducers } from './config';
-import localStorage, { loadState } from './config/local-storage';
 import App from './containers/App';
 
 import './index.scss';
 
-const store = createStore(reducers, loadState(), middleware);
-
-localStorage(store);
+const store = createStore(reducers, middleware);
 
 ReactDOM.render((
   <Provider store={store}>

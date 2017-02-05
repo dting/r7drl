@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import ROT from 'rot-js';
 
 import Board from '../Board';
@@ -11,25 +11,21 @@ class App extends PureComponent {
   static displayName = 'App';
 
   static propTypes = {
-    move: React.PropTypes.func.isRequired,
+    initGame: PropTypes.func.isRequired,
+    move: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.initKeyHandlers();
+    this.props.initGame();
   }
 
   initKeyHandlers() {
-    window.addEventListener('keydown', (e) => {
-      switch (e.keyCode) {
-        case ROT.VK_LEFT:
-        case ROT.VK_RIGHT:
-        case ROT.VK_UP:
-        case ROT.VK_DOWN:
-          this.props.move(e.keyCode);
-          break;
-        default:
-          break;
+    const { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN } = ROT;
+    window.addEventListener('keydown', ({ keyCode }) => {
+      if (keyCode === VK_LEFT || keyCode === VK_RIGHT || keyCode === VK_UP || keyCode === VK_DOWN) {
+        this.props.move(keyCode);
       }
     });
   }
@@ -41,7 +37,7 @@ class App extends PureComponent {
           <h2>Welcome to R7DRL</h2>
         </div>
         <div className="layout-content">
-          <Board />
+          <Board/>
         </div>
       </div>
     );
@@ -51,7 +47,8 @@ class App extends PureComponent {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  move: bindActionCreators(actions.game.move, dispatch),
+  initGame: bindActionCreators(actions.game.init, dispatch),
+  move: bindActionCreators(actions.game.move, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

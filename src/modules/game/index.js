@@ -1,23 +1,33 @@
+import ROT from 'rot-js';
+
+import Game from './game';
 import types from './constants';
 
+const HEIGHT = 30;
+const WIDTH = 80;
+const DISPLAY = new ROT.Display({ width: WIDTH, height: HEIGHT });
+
+const game = new Game(DISPLAY, HEIGHT, WIDTH);
+
 const initialState = {
-  height: 30,
-  width: 80,
+  ...game,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case types.SET_DISPLAY:
+    case types.INIT_GAME:
       return {
         ...state,
-        display: action.payload,
+        ...game.init(state),
       };
     case types.MOVE_LEFT:
     case types.MOVE_RIGHT:
     case types.MOVE_UP:
     case types.MOVE_DOWN:
-      console.log(action.type);
-      return state;
+      return {
+        ...state,
+        ...game.move(state, action.type),
+      };
     default:
       return state;
   }
