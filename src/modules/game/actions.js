@@ -2,9 +2,9 @@ import ROT from 'rot-js';
 
 import types from './constants';
 
-const mapSetup = function mapSetup(display) {
+const setDisplay = function setDisplay(display) {
   return {
-    type: types.MAP_SETUP,
+    type: types.SET_DISPLAY,
     payload: display,
   };
 };
@@ -23,6 +23,6 @@ const move = function move(keyCode) {
 }
 
 export default {
-  mapSetup,
   move,
+  setDisplay,
 };

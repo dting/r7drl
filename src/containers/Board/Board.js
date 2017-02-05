@@ -11,18 +11,14 @@ class Board extends PureComponent {
   static propTypes = {
     height: React.PropTypes.number.isRequired,
     width: React.PropTypes.number.isRequired,
-    mapSetup: React.PropTypes.func.isRequired,
+    setDisplay: React.PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    const { height, width } = props;
-    this.display = new ROT.Display({ height, width });
-  }
-
   componentDidMount() {
-    this.board.append(this.display.getContainer());
-    this.props.mapSetup(this.display);
+    const { height, width } = this.props;
+    const display = new ROT.Display({ height, width });
+    this.props.setDisplay(display);
+    this.board.append(display.getContainer());
   }
 
   render() {
@@ -38,7 +34,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  mapSetup: bindActionCreators(actions.game.mapSetup, dispatch),
+  setDisplay: bindActionCreators(actions.game.setDisplay, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

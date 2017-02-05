@@ -7,7 +7,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case types.MAP_SETUP:
+    case types.SET_DISPLAY:
       return {
         ...state,
         display: action.payload,
