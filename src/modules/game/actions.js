@@ -9,8 +9,19 @@ const KEYCODE_TO_DIRECTION = {
   [ROT.VK_DOWN]: types.MOVE_DOWN,
 };
 
+const drawMap = function drawMap() {
+  return (dispatch, getState) => {
+    const { display, player } = getState().game;
+    display.clear();
+    display.draw(player.x, player.y, player.char, player.fg, player.bg);
+  };
+};
+
 const init = function init() {
-  return { type: types.INIT_GAME };
+  return dispatch => {
+    dispatch({ type: types.INIT_GAME });
+    dispatch(drawMap());
+  };
 };
 
 const move = function move(keyCode) {

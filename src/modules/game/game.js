@@ -1,3 +1,5 @@
+import Player from './player';
+
 export default class Game {
   static LEVELS = {
     level1: {
@@ -28,6 +30,7 @@ export default class Game {
     return {
       level: Game.LEVELS.level1,
       message: "You are exploring",
+      player: new Player(),
     };
   }
 
