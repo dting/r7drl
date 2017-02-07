@@ -25,10 +25,11 @@ const init = function init() {
 };
 
 const move = function move(keyCode) {
-  return {
-    type: KEYCODE_TO_DIRECTION[keyCode],
-  };
-}
+  return dispatch => {
+    dispatch({ type: KEYCODE_TO_DIRECTION[keyCode] });
+    dispatch(drawMap());
+  }
+};
 
 export default {
   init,

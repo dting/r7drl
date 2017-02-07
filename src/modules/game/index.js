@@ -8,12 +8,24 @@ export default function (state = {}, action) {
         ...gameEngine.create(),
       };
     case types.MOVE_LEFT:
+      return {
+        ...state,
+        ...gameEngine.move(state, 'left'),
+      };
     case types.MOVE_RIGHT:
+      return {
+        ...state,
+        ...gameEngine.move(state, 'right'),
+      };
     case types.MOVE_UP:
+      return {
+        ...state,
+        ...gameEngine.move(state, 'up'),
+      };
     case types.MOVE_DOWN:
       return {
         ...state,
-        ...gameEngine.move(state, action.type),
+        ...gameEngine.move(state, 'down'),
       };
     default:
       return state;

@@ -36,8 +36,11 @@ const create = function create() {
 };
 
 const move = function move(state, direction) {
-  console.log(direction);
-  return {};
+  const player = new Player(state.player);
+  player.move(direction);
+  return {
+    player,
+  };
 };
 
 export default {
