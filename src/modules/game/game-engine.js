@@ -1,24 +1,21 @@
 import ROT from 'rot-js';
 
-import { Slime, Succubus, Cacodemon, Baron, Boss } from './monsters';
-import Player from './player';
+import { Location } from './components';
+import * as Factories from './factories';
+import { movement } from './systems';
 
-const HEIGHT = 30;
-const WIDTH = 80;
+const HEIGHT = 50;
+const WIDTH = 50;
 
-const DISPLAY = new ROT.Display({ width: WIDTH, height: HEIGHT });
+const DISPLAY = new ROT.Display({ width: WIDTH, height: HEIGHT, forceSquareRatio: true, fontSize: 12 });
 
-const LEVELS = ['Crust', 'Mantle', 'Outer Core', 'Inner Core'];
-const MONSTERS = [
-  [Slime, Slime, Slime, Slime, Slime],
-  [new Slime(), new Slime(), new Succubus(), new Succubus(), new Succubus()],
-  [new Cacodemon(), new Cacodemon(), new Cacodemon(), new Succubus(), new Succubus()],
-  [new Baron(), new Baron(), new Cacodemon(), new Succubus(), new Boss()],
-];
-
-const place = function(entity, coords) {
-  [entity.x, entity.y] = coords;
-};
+const LEVELS = [{
+  name: 'Vanilla JavaScript',
+  monsters: ['Object', 'Object', 'Object', 'Object', 'Object'],
+}, {
+  name: 'JQuery',
+  monsters: ['Object', 'Object', '$', '$', '$'],
+}];
 
 const streamSampler = function streamSampler(n) {
   return {
@@ -35,34 +32,47 @@ const streamSampler = function streamSampler(n) {
         }
       }
     },
-    sampled() {
-      return [...this.results];
-    },
   };
 };
 
-const create = function create(level = 0) {
+const create = function create(level = 0, player = Factories.Player.create()) {
   const map = Object.create(null);
   const seen = Object.create(null);
-  const levelName = LEVELS[level];
-  const monsters = MONSTERS[level].map(ctor => new ctor());
-  const player = new Player();
+  const levelName = LEVELS[level].name;
+  const monsters = LEVELS[level].monsters.map(Factories.Monster.create);
+  const items = [
+    Factories.Item.createPotion(),
+    Factories.Item.createPotion(),
+    Factories.Item.createPotion(),
+    Factories.Item.createArmor(level),
+    Factories.Item.createWeapon(level),
+    Factories.Item.createTransporter(),
+  ];
 
   const digger = new ROT.Map.Digger(WIDTH, HEIGHT);
   digger.create((x, y, type) => map[`${x},${y}`] = type);
 
-  const sampler = streamSampler(6);
-  digger.getRooms().forEach(room => {
+  const [startRoom, ...rooms] = digger.getRooms();
+
+  // Set player location
+  const startCoords = [
+    ROT.RNG.getUniformInt(startRoom._x1, startRoom._x2),
+    ROT.RNG.getUniformInt(startRoom._y1, startRoom._y2),
+  ];
+  player.setComponent(new Location(startCoords));
+
+  // Randomly place monsters and items
+  const entities = [...monsters, ...items];
+  const sampler = streamSampler(entities.length);
+  rooms.forEach(room => {
     for (let x = room._x1; x <= room._x2; x++) {
       for (let y = room._y1; y <= room._y2; y++) {
         sampler.next([x, y]);
       }
     }
   });
-  const coords = sampler.sampled();
-  place(player, coords.shift());
-
-  monsters.forEach(monster => place(monster, coords.shift()));
+  const coords = sampler.results;
+  entities.forEach(entity => entity.setComponent(new Location(coords.pop())));
 
   return {
     display: DISPLAY,
@@ -70,17 +80,15 @@ const create = function create(level = 0) {
     level,
     levelName,
     player,
+    entities,
     map,
-    monsters,
     seen,
   };
 };
 
 const move = function move(state, direction) {
-  const player = new Player(state.player);
-  player.move(direction);
   return {
-    player,
+    player: movement.move(state.player, direction),
   };
 };
 

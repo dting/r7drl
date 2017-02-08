@@ -1,5 +1,6 @@
 import ROT from 'rot-js';
 
+import * as Systems from './systems';
 import { landTile, wallTile } from './tile';
 
 import types from './constants';
@@ -13,7 +14,8 @@ const KEYCODE_TO_DIRECTION = {
 
 const drawMap = function drawMap() {
   return (dispatch, getState) => {
-    const { display, player, map, monsters, seen } = getState().game;
+    const { display, player, map, entities, seen } = getState().game;
+    const playerLocation = player.getComponent('Location');
 
     display.clear();
 
@@ -25,7 +27,7 @@ const drawMap = function drawMap() {
     new ROT.FOV.PreciseShadowcasting((x, y) => {
       const key = `${x},${y}`;
       return key in map && !map[key];
-    }).compute(player.x, player.y, 5, (x, y, r) => {
+    }).compute(playerLocation.x, playerLocation.y, 5, (x, y, r) => {
       const key = `${x},${y}`;
       if (!map[key] && !seen[key]) {
         seen[key] = [x, y];
@@ -34,14 +36,14 @@ const drawMap = function drawMap() {
       display.draw(x, y, '', '', bg);
     });
 
-    monsters.forEach(monster => {
-      const key = `${monster.x},${monster.y}`;
-      if (key in seen) {
-        display.draw(monster.x, monster.y, monster.char, monster.fg, monster.bg);
-      }
-    });
+    entities
+      .filter(entity => {
+        const { x, y } = entity.getComponent('Location');
+        return `${x},${y}` in seen;
+      })
+      .forEach(entity => Systems.display.draw(display, entity));
 
-    display.draw(player.x, player.y, player.char, player.fg, player.bg);
+    Systems.display.draw(display, player);
   };
 };
 
