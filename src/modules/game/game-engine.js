@@ -4,11 +4,6 @@ import { Location } from './components';
 import * as Factories from './factories';
 import { movement } from './systems';
 
-const HEIGHT = 50;
-const WIDTH = 50;
-
-const DISPLAY = new ROT.Display({ width: WIDTH, height: HEIGHT, forceSquareRatio: true, fontSize: 12 });
-
 const LEVELS = [{
   name: 'Vanilla JavaScript',
   monsters: ['Object', 'Object', 'Object', 'Object', 'Object'],
@@ -16,6 +11,16 @@ const LEVELS = [{
   name: 'JQuery',
   monsters: ['Object', 'Object', '$', '$', '$'],
 }];
+
+const HEIGHT = 40;
+const WIDTH = 40;
+const OPTIONS = {
+  width: WIDTH,
+  height: HEIGHT,
+  forceSquareRatio: true,
+  fontSize: 12,
+};
+const DISPLAY = new ROT.Display(OPTIONS);
 
 const streamSampler = function streamSampler(n) {
   return {
@@ -49,7 +54,7 @@ const create = function create(level = 0, player = Factories.Player.create()) {
     Factories.Item.createTransporter(),
   ];
 
-  const digger = new ROT.Map.Digger(WIDTH, HEIGHT);
+  const digger = new ROT.Map.Digger(WIDTH, HEIGHT, { dugPercentage: 0.4 });
   digger.create((x, y, type) => map[`${x},${y}`] = type);
 
   const [startRoom, ...rooms] = digger.getRooms();
@@ -87,6 +92,14 @@ const create = function create(level = 0, player = Factories.Player.create()) {
 };
 
 const move = function move(state, direction) {
+  const candidateLocation = movement.candidateLocation(state.player, direction);
+  const candidateKey = `${candidateLocation.x},${candidateLocation.y}`;
+
+  // If candidate location is a wall, noop
+  if (state.map[candidateKey]) {
+    return {};
+  }
+
   return {
     player: movement.move(state.player, direction),
   };

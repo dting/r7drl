@@ -15,10 +15,15 @@ const _move = function _move(location, direction) {
   }
 }
 
+const candidateLocation = function candidateLocation(entity, direction) {
+  return _move(entity.getComponent('Location'), direction);
+}
+
 const move = function move(entity, direction) {
   return entity.copy().setComponent(_move(entity.getComponent('Location'), direction));
 }
 
 export default {
+  candidateLocation,
   move,
 };
