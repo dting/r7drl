@@ -1,6 +1,6 @@
 import ROT from 'rot-js';
 
-import { Location } from './components';
+import { Location, Monster, Item } from './components';
 import { movement } from './systems';
 import { StreamSampler } from './utils';
 import * as Factories from './factories';
@@ -74,18 +74,40 @@ const create = function create(level = 0, player = Factories.Player.create()) {
   };
 };
 
-const move = function move(state, direction) {
-  const candidateLocation = movement.candidateLocation(state.player, direction);
-  const candidateKey = `${candidateLocation.x},${candidateLocation.y}`;
+const move = function move({ player, entities, map }, direction) {
+  const newLocation = movement.check(player, direction);
+  const key = `${newLocation.x},${newLocation.y}`;
 
-  // If candidate location is a wall, noop
-  if (state.map[candidateKey]) {
+  // If new location is a wall, noop
+  if (map[key]) {
     return {};
   }
 
-  return {
-    player: movement.move(state.player, direction),
-  };
+  const occupants = entities
+    .filter(entity => entity.hasComponent(Location))
+    .filter(entity => {
+      const { x, y } = entity.getComponent('Location');
+      return x === newLocation.x && y === newLocation.y;
+    });
+
+  if (occupants.length) {
+    const focus = occupants[0];
+    if (focus.hasComponent(Monster)) {
+      // combat
+    }
+    if (focus.hasComponent(Item)) {
+      // pick up item
+      entities.splice(entities.indexOf(focus), 1);
+      return {
+        message: `You have picked up: ${focus.getComponent('Meta').name}`,
+      };
+    }
+  } else {
+    return {
+      player: movement.move(player, newLocation),
+      message: 'You are exploring',
+    };
+  }
 };
 
 export default {

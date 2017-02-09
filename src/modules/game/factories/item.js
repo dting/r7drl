@@ -1,5 +1,5 @@
 import Entity from '../entity';
-import { Attributes, Display, Meta } from '../components';
+import { Attributes, Display, Item, Meta } from '../components';
 
 const ARMOR = [
   ['Cloth Hat', 3],
@@ -19,6 +19,7 @@ export default {
   createPotion() {
     return new Entity()
       .setComponent(new Meta({ name: 'Potion' }))
+      .setComponent(Item.INSTANCE)
       .setComponent(new Attributes({ hp: 35 }))
       .setComponent(new Display({ char: 'p', fg: 'green', bg: 'white' }));
   },
@@ -26,6 +27,7 @@ export default {
     const [name, def] = ARMOR[level];
     return new Entity()
       .setComponent(new Meta({ name }))
+      .setComponent(Item.INSTANCE)
       .setComponent(new Attributes({ def }))
       .setComponent(new Display({ char: 'a', fg: 'gray', bg: 'white' }));
 
@@ -34,6 +36,7 @@ export default {
     const [name, atk] = WEAPON[level];
     return new Entity()
       .setComponent(new Meta({ name }))
+      .setComponent(Item.INSTANCE)
       .setComponent(new Attributes({ atk }))
       .setComponent(new Display({ char: 'w', fg: 'gray', bg: 'white' }));
   },

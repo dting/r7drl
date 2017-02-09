@@ -1,16 +1,16 @@
 import Component from './component';
 
-export default class Player extends Component {
-  static INSTANCE = new Player();
+export default class Item extends Component {
+  static INSTANCE = new Item();
 
   constructor() {
-    if (Player.INSTANCE) {
+    if (Item.INSTANCE) {
       throw new Error('Calling enum Component constructor not allowed');
     }
     super();
   }
 
   getComponentType() {
-    return Player.name;
+    return Item.name;
   }
 }

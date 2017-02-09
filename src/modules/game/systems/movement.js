@@ -1,6 +1,6 @@
 import { Location } from '../components';
 
-const _move = function _move(location, direction) {
+const _next = function _move(location, direction) {
   switch(direction) {
     case 'left':
       return new Location([location.x - 1, location.y]);
@@ -15,15 +15,15 @@ const _move = function _move(location, direction) {
   }
 }
 
-const candidateLocation = function candidateLocation(entity, direction) {
-  return _move(entity.getComponent('Location'), direction);
+const check = function check(entity, direction) {
+  return _next(entity.getComponent('Location'), direction);
 }
 
-const move = function move(entity, direction) {
-  return entity.copy().setComponent(_move(entity.getComponent('Location'), direction));
+const move = function move(entity, location) {
+  return entity.copy().setComponent(location);
 }
 
 export default {
-  candidateLocation,
+  check,
   move,
 };
