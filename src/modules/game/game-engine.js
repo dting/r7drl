@@ -97,9 +97,10 @@ const move = function move({ player, entities, map }, direction) {
     }
     if (focus.hasComponent(Item)) {
       // pick up item
-      entities.splice(entities.indexOf(focus), 1);
+      const index = entities.indexOf(focus);
       return {
-        message: `You have picked up: ${focus.getComponent('Meta').name}`,
+        message: `Picked up - ${focus.getComponent('Meta').name}`,
+        entities: [...entities.slice(0, index), ...entities.slice(index + 1)],
       };
     }
   } else {

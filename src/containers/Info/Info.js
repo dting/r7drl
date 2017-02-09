@@ -5,21 +5,42 @@ class Info extends PureComponent {
   static displayName = 'Info';
 
   static propTypes = {
-    playerLevel: PropTypes.number,
     message: PropTypes.string,
   };
 
   render() {
     return (
       <div className="info">
-        <p>{this.props.message}</p>
+        <div className="info--message">{this.props.message}</div>
+        <div className="info__player">
+          <div className="info__player--attributes">
+            LVL: {this.props.lvl}
+          </div>
+          <div className="info__player--attributes">
+            HP: {this.props.hp}
+          </div>
+          <div className="info__player--attributes">
+            ATK: {this.props.atk}
+          </div>
+          <div className="info__player--attributes">
+            DEF: {this.props.def}
+          </div>
+        </div>
+        <div className="info__equipment">
+          <div className="info__equipment--weapon">
+            <span className="info__equipment--icon">⚔</span>
+          </div>
+          <div className="info__equipment--armor">
+            <span className="info__equipment--icon">🛡️</span>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  playerLevel: state.game.player.level,
+  ...state.game.player.getComponent('Attributes'),
   message: state.game.message,
 });
 
