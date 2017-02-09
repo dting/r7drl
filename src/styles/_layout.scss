@@ -14,8 +14,8 @@
 }
 
 .layout-content {
-  display : flex;
-  flex    : 1;
-  align-items      : center;
-  justify-content  : center;
+  display         : flex;
+  align-items     : center;
+  flex            : 1;
+  flex-direction  : column;
 }
