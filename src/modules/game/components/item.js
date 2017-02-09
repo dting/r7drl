@@ -1,6 +1,7 @@
 import Component from './component';
 
 export default class Item extends Component {
+  static componentType = 'Item';
   static INSTANCE = new Item();
 
   constructor() {
@@ -11,6 +12,6 @@ export default class Item extends Component {
   }
 
   getComponentType() {
-    return Item.name;
+    return Item.componentType;
   }
 }

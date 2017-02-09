@@ -1,6 +1,8 @@
 import Component from './component';
 
 export default class Attributes extends Component {
+  static componentType = 'Attributes';
+
   constructor({ atk, def, exp, hp, lvl }) {
     super();
     this.atk = atk;
@@ -11,6 +13,6 @@ export default class Attributes extends Component {
   }
 
   getComponentType() {
-    return Attributes.name;
+    return Attributes.componentType;
   }
 }

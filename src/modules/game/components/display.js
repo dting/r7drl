@@ -1,6 +1,8 @@
 import Component from './component';
 
 export default class Display extends Component {
+  static componentType = 'Display';
+
   constructor({ char, fg, bg }) {
     super();
     this.char = char;
@@ -9,6 +11,6 @@ export default class Display extends Component {
   }
 
   getComponentType() {
-    return Display.name;
+    return Display.componentType;
   }
 }

@@ -1,6 +1,8 @@
 import Component from './component';
 
 export default class Location extends Component {
+  static componentType = 'Location';
+
   constructor([x, y]) {
     super();
     this.x = x;
@@ -8,6 +10,6 @@ export default class Location extends Component {
   }
 
   getComponentType() {
-    return Location.name;
+    return Location.componentType;
   }
 }

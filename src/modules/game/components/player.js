@@ -1,7 +1,9 @@
 import Component from './component';
 
 export default class Player extends Component {
+  static componentType = 'Player';
   static INSTANCE = new Player();
+
 
   constructor() {
     if (Player.INSTANCE) {
@@ -11,6 +13,6 @@ export default class Player extends Component {
   }
 
   getComponentType() {
-    return Player.name;
+    return Player.componentType;
   }
 }
