@@ -6,32 +6,47 @@ class Info extends PureComponent {
 
   static propTypes = {
     message: PropTypes.string,
+    lvl: PropTypes.number,
+    exp: PropTypes.number,
+    hp: PropTypes.number,
+    atk: PropTypes.number,
+    def: PropTypes.number,
+    currentWeapon: PropTypes.shape({}),
+    currentArmor: PropTypes.shape({}),
   };
 
   render() {
+    const { message, lvl, exp, hp, atk, def, currentWeapon, currentArmor } = this.props;
+    const weaponName = currentWeapon.getComponent('Meta').name;
+    const weaponAtk = currentWeapon.getComponent('Attributes').atk;
+    const armorName = currentArmor.getComponent('Meta').name;
+    const armorDef = currentArmor.getComponent('Attributes').def;
     return (
       <div className="info">
-        <div className="info--message">{this.props.message}</div>
+        <div className="info--message">{message}</div>
         <div className="info__player">
           <div className="info__player--attributes">
-            LVL: {this.props.lvl}
+            LVL: {lvl}
           </div>
           <div className="info__player--attributes">
-            HP: {this.props.hp}
+            EXP: {exp}
           </div>
           <div className="info__player--attributes">
-            ATK: {this.props.atk}
+            HP: {hp}
           </div>
           <div className="info__player--attributes">
-            DEF: {this.props.def}
+            ATK: {atk}
+          </div>
+          <div className="info__player--attributes">
+            DEF: {def}
           </div>
         </div>
         <div className="info__equipment">
           <div className="info__equipment--weapon">
-            <span className="info__equipment--icon">⚔</span>{this.props.currentWeapon.getComponent('Meta').name}
+            <span className="info__equipment--icon">⚔</span>{`${weaponName} (ATK: +${weaponAtk})`}
           </div>
           <div className="info__equipment--armor">
-            <span className="info__equipment--icon">🛡️</span>{this.props.currentArmor.getComponent('Meta').name}
+            <span className="info__equipment--icon">🛡️</span>{`${armorName} (DEF: +${armorDef})`}
           </div>
         </div>
       </div>

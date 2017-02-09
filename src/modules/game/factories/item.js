@@ -2,7 +2,7 @@ import Entity from '../entity';
 import { Attributes, Display, Item, Meta } from '../components';
 
 const ARMOR = [
-  ['In the Buff', 0],
+  ['Birthday Suit', 0],
   ['Cloth Hat', 3],
   ['Leather Cuirass', 6],
   ['Enchanted Robe', 9],

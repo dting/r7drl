@@ -11,7 +11,13 @@ const LEVELS = [{
   monsters: ['Object', 'Object', 'Object', 'Object', 'Object'],
 }, {
   name: 'JQuery',
-  monsters: ['Object', 'Object', '$', '$', '$'],
+  monsters: ['$', '$', '$', 'Object', 'Object'],
+}, {
+  name: 'Angular',
+  monsters: ['Directive', 'Directive', 'Directive', '$', '$'],
+}, {
+  name: 'React',
+  monsters: ['Redux', 'GraphQL', 'GraphQL', 'Directive', 'Directive'],
 }];
 
 const HEIGHT = 40;
