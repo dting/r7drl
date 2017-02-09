@@ -1,8 +1,9 @@
 import ROT from 'rot-js';
 
 import { Location } from './components';
-import * as Factories from './factories';
 import { movement } from './systems';
+import { StreamSampler } from './utils';
+import * as Factories from './factories';
 
 const LEVELS = [{
   name: 'Vanilla JavaScript',
@@ -21,24 +22,6 @@ const OPTIONS = {
   fontSize: 12,
 };
 const DISPLAY = new ROT.Display(OPTIONS);
-
-const streamSampler = function streamSampler(n) {
-  return {
-    results: [],
-    count: 0,
-    next(v) {
-      this.count += 1;
-      if (this.count <= n) {
-        this.results.push(v);
-      } else {
-        const r = Math.floor(Math.random() * this.count);
-        if (r < n) {
-          this.results[r] = v;
-        }
-      }
-    },
-  };
-};
 
 const create = function create(level = 0, player = Factories.Player.create()) {
   const map = Object.create(null);
@@ -68,7 +51,7 @@ const create = function create(level = 0, player = Factories.Player.create()) {
 
   // Randomly place monsters and items
   const entities = [...monsters, ...items];
-  const sampler = streamSampler(entities.length);
+  const sampler = new StreamSampler(entities.length);
   rooms.forEach(room => {
     for (let x = room._x1; x <= room._x2; x++) {
       for (let y = room._y1; y <= room._y2; y++) {
