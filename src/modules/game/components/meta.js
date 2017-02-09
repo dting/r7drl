@@ -1,14 +1,8 @@
 import Component from './component';
 
 export default class Meta extends Component {
-  static componentType = 'Meta';
-
   constructor({ name }) {
-    super();
+    super('Meta');
     this.name = name;
-  }
-
-  getComponentType() {
-    return Meta.componentType;
   }
 }

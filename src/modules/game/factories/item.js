@@ -19,7 +19,7 @@ export default {
   createPotion() {
     return new Entity()
       .setComponent(new Meta({ name: 'Potion' }))
-      .setComponent(Item.INSTANCE)
+      .setComponent(Item.CONSUMABLE)
       .setComponent(new Attributes({ hp: 35 }))
       .setComponent(new Display({ char: 'p', fg: 'green', bg: 'white' }));
   },
@@ -27,7 +27,7 @@ export default {
     const [name, def] = ARMOR[level];
     return new Entity()
       .setComponent(new Meta({ name }))
-      .setComponent(Item.INSTANCE)
+      .setComponent(Item.ARMOR)
       .setComponent(new Attributes({ def }))
       .setComponent(new Display({ char: 'a', fg: 'gray', bg: 'white' }));
 
@@ -36,13 +36,14 @@ export default {
     const [name, atk] = WEAPON[level];
     return new Entity()
       .setComponent(new Meta({ name }))
-      .setComponent(Item.INSTANCE)
+      .setComponent(Item.WEAPON)
       .setComponent(new Attributes({ atk }))
       .setComponent(new Display({ char: 'w', fg: 'gray', bg: 'white' }));
   },
   createTransporter() {
     return new Entity()
       .setComponent(new Meta({ name: 'Transporter' }))
+      .setComponent(Item.TRANSPORT)
       .setComponent(new Display({ char: 't', fg: 'purple', bg: 'white' }));
   },
 }

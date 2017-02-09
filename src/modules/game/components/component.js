@@ -1,5 +1,12 @@
 export default class Component {
+  constructor(componentType)  {
+    if (componentType === undefined) {
+      throw new Error('Must specify componentType');
+    }
+    this.componentType= componentType;
+  }
+
   getComponentType() {
-    throw new Error('This method must be overridden.');
+    return this.componentType;
   }
 }

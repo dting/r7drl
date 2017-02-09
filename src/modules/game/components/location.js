@@ -1,15 +1,10 @@
 import Component from './component';
 
 export default class Location extends Component {
-  static componentType = 'Location';
-
   constructor([x, y]) {
-    super();
+    super('Location');
     this.x = x;
     this.y = y;
-  }
-
-  getComponentType() {
-    return Location.componentType;
+    this.key = `${this.x},${this.y}`;
   }
 }

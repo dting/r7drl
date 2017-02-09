@@ -1,6 +1,6 @@
 import ROT from 'rot-js';
 
-import { Location, Monster, Item } from './components';
+import { Location } from './components';
 import { movement } from './systems';
 import { StreamSampler } from './utils';
 import * as Factories from './factories';
@@ -76,26 +76,22 @@ const create = function create(level = 0, player = Factories.Player.create()) {
 
 const move = function move({ player, entities, map }, direction) {
   const newLocation = movement.check(player, direction);
-  const key = `${newLocation.x},${newLocation.y}`;
 
   // If new location is a wall, noop
-  if (map[key]) {
+  if (map[newLocation.key]) {
     return {};
   }
 
   const occupants = entities
-    .filter(entity => entity.hasComponent(Location))
-    .filter(entity => {
-      const { x, y } = entity.getComponent('Location');
-      return x === newLocation.x && y === newLocation.y;
-    });
+    .filter(entity => entity.hasComponent('Location'))
+    .filter(entity => entity.getComponent('Location').key === newLocation.key);
 
   if (occupants.length) {
     const focus = occupants[0];
-    if (focus.hasComponent(Monster)) {
+    if (focus.hasComponent('Monster')) {
       // combat
     }
-    if (focus.hasComponent(Item)) {
+    if (focus.hasComponent('Item')) {
       // pick up item
       const index = entities.indexOf(focus);
       return {

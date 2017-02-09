@@ -1,18 +1,12 @@
 import Component from './component';
 
-export default class Player extends Component {
-  static componentType = 'Player';
-  static INSTANCE = new Player();
-
-
+class Player extends Component {
   constructor() {
-    if (Player.INSTANCE) {
-      throw new Error('Calling enum Component constructor not allowed');
-    }
-    super();
-  }
-
-  getComponentType() {
-    return Player.componentType;
+    super('Player');
+    Object.freeze(this);
   }
 }
+
+export default Object.freeze({
+  INSTANCE: new Player(),
+});

@@ -3,8 +3,8 @@ export default class Entity {
     this.components = new Map(components);
   }
 
-  hasComponent(cls) {
-    return this.components.has(cls.name);
+  hasComponent(componentType) {
+    return this.components.has(componentType);
   }
 
   getComponent(componentType) {

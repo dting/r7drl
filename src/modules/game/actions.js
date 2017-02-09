@@ -37,10 +37,7 @@ const drawMap = function drawMap() {
     });
 
     entities
-      .filter(entity => {
-        const { x, y } = entity.getComponent('Location');
-        return `${x},${y}` in seen;
-      })
+      .filter(entity => entity.getComponent('Location').key in seen)
       .forEach(entity => Systems.display.draw(display, entity));
 
     Systems.display.draw(display, player);
