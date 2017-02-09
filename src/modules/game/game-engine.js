@@ -1,7 +1,7 @@
 import ROT from 'rot-js';
 
 import { Location } from './components';
-import { movement } from './systems';
+import { item, movement } from './systems';
 import { StreamSampler } from './utils';
 import * as Factories from './factories';
 
@@ -99,12 +99,11 @@ const move = function move({ player, entities, map }, direction) {
       // combat
     }
     if (focus.hasComponent('Item')) {
-      // pick up item
-      const index = entities.indexOf(focus);
-      return {
-        message: `Picked up - ${focus.getComponent('Meta').name}`,
-        entities: [...entities.slice(0, index), ...entities.slice(index + 1)],
-      };
+      if (focus.getComponent('Item').type === 'Transport') {
+        // TODO: Transport to next level
+        return {};
+      }
+      return item.pickUp({ player, entities }, focus);
     }
   } else {
     return {
