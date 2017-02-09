@@ -2,6 +2,7 @@ import Entity from '../entity';
 import { Attributes, Display, Item, Meta } from '../components';
 
 const ARMOR = [
+  ['In the Buff', 0],
   ['Cloth Hat', 3],
   ['Leather Cuirass', 6],
   ['Enchanted Robe', 9],
@@ -9,6 +10,7 @@ const ARMOR = [
 ];
 
 const WEAPON = [
+  ['Fists', 0],
   ['Oversized Axe', 6],
   ['Short Katana', 12],
   ['Kokiri Sword', 18],

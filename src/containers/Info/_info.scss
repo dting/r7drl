@@ -1,7 +1,6 @@
 .info {
   display        : flex;
   width          : 480px;
-  margin-top     : 10px;
   border         : 1px solid black;
   flex-direction : column;
 }
@@ -11,27 +10,41 @@
   padding          : 5px;
   background-color : grey;
   justify-content  : center;
+  align-items : center;
+  height: 35px;
 }
 
 .info__player {
   display    : flex;
   border-top : 1px solid black;
+  height: 35px;
+  align-items : center;
 }
 
 .info__player--attributes {
-  display         : flex;
-  padding         : 5px;
-  flex            : 1;
+  display : flex;
+  padding : 5px;
+  flex    : 1;
 }
 
 .info__equipment {
   display    : flex;
   border-top : 1px solid black;
+  height: 35px;
 }
 
 .info__equipment--armor,
 .info__equipment--weapon {
-  display : flex;
-  padding : 5px;
-  flex    : 1;
+  display     : flex;
+  padding     : 5px;
+  align-items : center;
+  flex        : 1;
+}
+
+.info__equipment--icon {
+  display     : flex;
+  width: 25px;
+  height: 25px;
+  align-items : center;
+  margin-right: 5px;
 }

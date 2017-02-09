@@ -6,6 +6,7 @@ import { StreamSampler } from './utils';
 import * as Factories from './factories';
 
 const LEVELS = [{
+}, {
   name: 'Vanilla JavaScript',
   monsters: ['Object', 'Object', 'Object', 'Object', 'Object'],
 }, {
@@ -23,7 +24,7 @@ const OPTIONS = {
 };
 const DISPLAY = new ROT.Display(OPTIONS);
 
-const create = function create(level = 0, player = Factories.Player.create()) {
+const create = function create(level = 1, player = Factories.Player.create()) {
   const map = Object.create(null);
   const seen = Object.create(null);
   const levelName = LEVELS[level].name;

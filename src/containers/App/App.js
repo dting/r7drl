@@ -38,8 +38,8 @@ class App extends PureComponent {
           <h2>Welcome to R7DRL</h2>
         </div>
         <div className="layout-content">
-          <Info />
           <Board/>
+          <Info />
         </div>
       </div>
     );

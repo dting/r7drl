@@ -28,10 +28,10 @@ class Info extends PureComponent {
         </div>
         <div className="info__equipment">
           <div className="info__equipment--weapon">
-            <span className="info__equipment--icon">⚔</span>
+            <span className="info__equipment--icon">⚔</span>{this.props.currentWeapon.getComponent('Meta').name}
           </div>
           <div className="info__equipment--armor">
-            <span className="info__equipment--icon">🛡️</span>
+            <span className="info__equipment--icon">🛡️</span>{this.props.currentArmor.getComponent('Meta').name}
           </div>
         </div>
       </div>
@@ -41,6 +41,7 @@ class Info extends PureComponent {
 
 const mapStateToProps = state => ({
   ...state.game.player.getComponent('Attributes'),
+  ...state.game.player.getComponent('Inventory'),
   message: state.game.message,
 });
 
