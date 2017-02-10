@@ -1,9 +1,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { PureComponent, PropTypes } from 'react';
-import ROT from 'rot-js';
 
 import Board from '../Board';
+import Header from '../Header';
 import Info from '../Info';
 
 import { actions } from '../../modules';
@@ -33,7 +33,8 @@ class App extends PureComponent {
           <h2>Welcome to R7DRL</h2>
         </div>
         <div className="layout-content">
-          <Board/>
+          <Header />
+          <Board />
           <Info />
         </div>
       </div>
