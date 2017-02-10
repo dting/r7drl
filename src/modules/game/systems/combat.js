@@ -22,10 +22,12 @@ const fight = function pickUp({ player, entities }, monster) {
   const [mDamage, monsterAttributes] = assignDamage(player, monster);
 
   if (monsterAttributes.hp === 0) {
+    // Monster is killed, award xp and remove monster entity
     entities = [...entities.slice(0, index), ...entities.slice(index + 1)];
     playerAttributes.exp += monsterAttributes.exp;
     message = `${monsterName} killed | +${monsterAttributes.exp} exp`;
   } else {
+    // Monster damaged, update updated entity
     const updatedMonster = monster.copy().setComponent(monsterAttributes);
     entities = [...entities.slice(0, index), updatedMonster, ...entities.slice(index + 1)];
     message = `${monsterName} takes ${mDamage} dmg | You take ${pDamage} dmg`;

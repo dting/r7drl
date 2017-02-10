@@ -3,6 +3,9 @@ import types from './constants';
 
 export default function (state = {}, action) {
   switch (action.type) {
+    case types.DRAW_MAP:
+      gameEngine.drawMap(state);
+      return state;
     case types.INIT_GAME:
       return {
         ...gameEngine.create(),

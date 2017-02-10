@@ -10,15 +10,14 @@ const OPTIONS = {
 };
 const DISPLAY = new ROT.Display(OPTIONS);
 
+const drawMap = function drawMap(state) {
+  Systems.display.drawMap(state);
+};
+
 const create = function create(level = 1, player) {
   const { width, height } = OPTIONS;
   return {
-    ...Systems.level.generate({
-      player,
-      level,
-      height,
-      width,
-    }),
+    ...Systems.level.generate({ player, level, height, width }),
     display: DISPLAY,
   };
 };
@@ -61,5 +60,6 @@ const move = function move(state, direction) {
 
 export default {
   create,
+  drawMap,
   move,
 };
