@@ -14,5 +14,5 @@ export default {
       .setComponent(inventory)
       .setComponent(new Attributes({ atk, def, exp, hp, lvl }))
       .setComponent(new Display({ char: '⚇', fg: 'blue', bg: 'white' }));
-  }
-}
+  },
+};

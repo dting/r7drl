@@ -14,7 +14,7 @@ const drawMap = {
 };
 
 const init = function init() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: types.INIT_GAME });
     dispatch(drawMap);
   };
@@ -23,13 +23,12 @@ const init = function init() {
 const move = function move(keyCode) {
   return (dispatch, getState) => {
     if (getState().game.over) {
-      return dispatch(init());
-    }
-    if (KEYCODE_TO_DIRECTION.hasOwnProperty(keyCode)) {
+      dispatch(init());
+    } else if ({}.hasOwnProperty.call(KEYCODE_TO_DIRECTION, keyCode)) {
       dispatch({ type: KEYCODE_TO_DIRECTION[keyCode] });
       dispatch(drawMap);
     }
-  }
+  };
 };
 
 export default {

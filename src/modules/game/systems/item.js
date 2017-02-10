@@ -35,7 +35,7 @@ const pickUp = function pickUp({ player, entities }, item) {
     message: `Picked up - ${item.getComponent('Meta').name}`,
     entities: [...entities.slice(0, index), ...entities.slice(index + 1)],
   };
-}
+};
 
 export default {
   pickUp,

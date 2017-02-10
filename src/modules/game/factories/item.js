@@ -6,7 +6,7 @@ const ARMOR = [
   ['Cloth Hat', 3],
   ['Leather Cuirass', 6],
   ['Enchanted Robe', 9],
-  ['Godly Plate', 15]
+  ['Godly Plate', 15],
 ];
 
 const WEAPON = [
@@ -32,7 +32,6 @@ export default {
       .setComponent(Item.ARMOR)
       .setComponent(new Attributes({ def }))
       .setComponent(new Display({ char: 'a', fg: 'gray', bg: 'white' }));
-
   },
   createWeapon(level) {
     const [name, atk] = WEAPON[level];
@@ -48,4 +47,4 @@ export default {
       .setComponent(Item.TRANSPORT)
       .setComponent(new Display({ char: 't', fg: 'purple', bg: 'white' }));
   },
-}
+};

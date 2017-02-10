@@ -5,8 +5,8 @@ class Header extends PureComponent {
   static displayName = 'Header';
 
   static propTypes = {
-    level: PropTypes.number,
-    levelName: PropTypes.string,
+    level: PropTypes.number.isRequired,
+    levelName: PropTypes.string.isRequired,
   };
 
   render() {

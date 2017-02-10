@@ -17,5 +17,5 @@ export default {
       .setComponent(new Meta({ name }))
       .setComponent(new Attributes({ atk, def, hp, exp }))
       .setComponent(new Display({ char, fg: 'red', bg: 'white' }));
-  }
-}
+  },
+};

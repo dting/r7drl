@@ -16,7 +16,7 @@ class Board extends PureComponent {
 
   render() {
     return (
-      <div className="board" ref={c => this.board = c} />
+      <div className="board" ref={c => (this.board = c)} />
     );
   }
 }

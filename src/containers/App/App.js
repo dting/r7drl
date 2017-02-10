@@ -13,7 +13,7 @@ class App extends PureComponent {
 
   static propTypes = {
     initGame: PropTypes.func.isRequired,
-    move: PropTypes.func.isRequired
+    move: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -42,11 +42,9 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = dispatch => ({
   initGame: bindActionCreators(actions.game.init, dispatch),
-  move: bindActionCreators(actions.game.move, dispatch)
+  move: bindActionCreators(actions.game.move, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -10,7 +10,7 @@ const assignDamage = function assignDamage(source, target) {
   const sAttr = source.getComponent('Attributes');
   const tAttr = target.getComponent('Attributes');
   const damage = calculateDamage(sAttr.atk, tAttr.def, sAttr.lvl);
-  return [damage, new Attributes({...tAttr, hp: Math.max(0, tAttr.hp - damage) })];
+  return [damage, new Attributes({ ...tAttr, hp: Math.max(0, tAttr.hp - damage) })];
 };
 
 const fight = function pickUp({ player, entities }, monster) {

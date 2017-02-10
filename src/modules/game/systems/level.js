@@ -34,7 +34,7 @@ const generate = function generate({ level = 1, player = Player.create(), width,
   ];
 
   const digger = new ROT.Map.Digger(width, height, { dugPercentage: 0.4 });
-  digger.create((x, y, type) => map[`${x},${y}`] = type);
+  digger.create((x, y, type) => (map[`${x},${y}`] = type));
 
   const [startRoom, ...rooms] = digger.getRooms();
 
@@ -48,9 +48,9 @@ const generate = function generate({ level = 1, player = Player.create(), width,
   // Randomly place monsters and items
   const entities = [...monsters, ...items];
   const sampler = new StreamSampler(entities.length);
-  rooms.forEach(room => {
-    for (let x = room._x1; x <= room._x2; x++) {
-      for (let y = room._y1; y <= room._y2; y++) {
+  rooms.forEach((room) => {
+    for (let x = room._x1; x <= room._x2; x += 1) {
+      for (let y = room._y1; y <= room._y2; y += 1) {
         sampler.next([x, y]);
       }
     }
@@ -59,7 +59,7 @@ const generate = function generate({ level = 1, player = Player.create(), width,
   entities.forEach(entity => entity.setComponent(new Location(coords.pop())));
 
   return {
-    message: "You are exploring",
+    message: 'You are exploring',
     over: false,
     level,
     levelName,

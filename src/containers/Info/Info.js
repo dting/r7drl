@@ -5,14 +5,14 @@ class Info extends PureComponent {
   static displayName = 'Info';
 
   static propTypes = {
-    message: PropTypes.string,
-    lvl: PropTypes.number,
-    exp: PropTypes.number,
-    hp: PropTypes.number,
-    atk: PropTypes.number,
-    def: PropTypes.number,
-    currentWeapon: PropTypes.shape({}),
-    currentArmor: PropTypes.shape({}),
+    message: PropTypes.string.isRequired,
+    lvl: PropTypes.number.isRequired,
+    exp: PropTypes.number.isRequired,
+    hp: PropTypes.number.isRequired,
+    atk: PropTypes.number.isRequired,
+    def: PropTypes.number.isRequired,
+    currentWeapon: PropTypes.shape({}).isRequired,
+    currentArmor: PropTypes.shape({}).isRequired,
   };
 
   render() {

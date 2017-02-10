@@ -50,12 +50,11 @@ const move = function move(state, direction) {
       }
       return Systems.item.pickUp({ player, entities }, focus);
     }
-  } else {
-    return {
-      player: Systems.movement.move(player, newLocation),
-      message: 'You are exploring',
-    };
   }
+  return {
+    player: Systems.movement.move(player, newLocation),
+    message: 'You are exploring',
+  };
 };
 
 export default {
