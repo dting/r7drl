@@ -1,23 +1,23 @@
 import ROT from 'rot-js';
 
-import { combat, item, level, movement } from './systems';
+import * as Systems from './systems';
 
-const HEIGHT = 40;
-const WIDTH = 40;
-const DISPLAY = new ROT.Display({
-  width: WIDTH,
-  height: HEIGHT,
+const OPTIONS = {
+  width: 40,
+  height: 40,
   forceSquareRatio: true,
   fontSize: 12,
-});
+};
+const DISPLAY = new ROT.Display(OPTIONS);
 
-const create = function create(lvl = 1, player) {
+const create = function create(level = 1, player) {
+  const { width, height } = OPTIONS;
   return {
-    ...level.generate({
+    ...Systems.level.generate({
       player,
-      level: lvl,
-      height: HEIGHT,
-      width: WIDTH,
+      level,
+      height,
+      width,
     }),
     display: DISPLAY,
   };
@@ -29,7 +29,7 @@ const transport = function transport(state) {
 
 const move = function move(state, direction) {
   const { player, entities, map } = state;
-  const newLocation = movement.check(player, direction);
+  const newLocation = Systems.movement.check(player, direction);
 
   // If new location is a wall, noop
   if (map[newLocation.key]) {
@@ -43,17 +43,17 @@ const move = function move(state, direction) {
   if (occupants.length) {
     const focus = occupants[0];
     if (focus.hasComponent('Monster')) {
-      return combat.fight({ player, entities }, focus);
+      return Systems.combat.fight({ player, entities }, focus);
     }
     if (focus.hasComponent('Item')) {
       if (focus.getComponent('Item').type === 'Transport') {
         return transport(state);
       }
-      return item.pickUp({ player, entities }, focus);
+      return Systems.item.pickUp({ player, entities }, focus);
     }
   } else {
     return {
-      player: movement.move(player, newLocation),
+      player: Systems.movement.move(player, newLocation),
       message: 'You are exploring',
     };
   }
