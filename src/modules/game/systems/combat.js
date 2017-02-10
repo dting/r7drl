@@ -37,6 +37,7 @@ const fight = function pickUp({ player, entities }, monster) {
   }
 
   return {
+    over: playerAttributes.hp === 0,
     player: updatedPlayer,
     entities,
     message,

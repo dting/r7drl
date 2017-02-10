@@ -72,6 +72,7 @@ const create = function create(level = 1, player = Factories.Player.create()) {
   return {
     display: DISPLAY,
     message: "You are exploring",
+    over: false,
     level,
     levelName,
     player,

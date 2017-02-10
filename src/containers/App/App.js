@@ -23,12 +23,7 @@ class App extends PureComponent {
   }
 
   initKeyHandlers() {
-    const { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN } = ROT;
-    window.addEventListener('keydown', ({ keyCode }) => {
-      if (keyCode === VK_LEFT || keyCode === VK_RIGHT || keyCode === VK_UP || keyCode === VK_DOWN) {
-        this.props.move(keyCode);
-      }
-    });
+    window.addEventListener('keydown', ({ keyCode }) => this.props.move(keyCode));
   }
 
   render() {

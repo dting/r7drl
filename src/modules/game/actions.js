@@ -52,9 +52,14 @@ const init = function init() {
 };
 
 const move = function move(keyCode) {
-  return dispatch => {
-    dispatch({ type: KEYCODE_TO_DIRECTION[keyCode] });
-    dispatch(drawMap());
+  return (dispatch, getState) => {
+    if (getState().game.over) {
+      return dispatch(init());
+    }
+    if (KEYCODE_TO_DIRECTION.hasOwnProperty(keyCode)) {
+      dispatch({ type: KEYCODE_TO_DIRECTION[keyCode] });
+      dispatch(drawMap());
+    }
   }
 };
 
