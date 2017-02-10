@@ -1,7 +1,7 @@
 import ROT from 'rot-js';
 
 import { Location } from './components';
-import { item, movement } from './systems';
+import { combat, item, movement } from './systems';
 import { StreamSampler } from './utils';
 import * as Factories from './factories';
 
@@ -96,7 +96,7 @@ const move = function move({ player, entities, map }, direction) {
   if (occupants.length) {
     const focus = occupants[0];
     if (focus.hasComponent('Monster')) {
-      // combat
+      return combat.fight({ player, entities }, focus);
     }
     if (focus.hasComponent('Item')) {
       if (focus.getComponent('Item').type === 'Transport') {
